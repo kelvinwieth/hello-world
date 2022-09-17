@@ -22,7 +22,7 @@ jobs:
         host: $HOST
         username: $USERNAME
         key: $SSH_KEY
-        script: if [ -d $LOCAL ]; then git -C $LOCAL pull; else git clone $REMOTE; fi
+        script: if [ -d $LOCAL/.git ]; then cd $LOCAL; git pull; else rm -rf $LOCAL; git clone $REMOTE; fi
 
     # - name: Building project
     #   uses: appleboy/ssh-action@master
