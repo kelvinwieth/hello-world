@@ -4,27 +4,25 @@ on:
   push:
     branches: [ "master" ]
 
-# env:
-#   REPOSITORY_NAME: hello-world
-#   REPOSITORY_URL: https://github.com/kelvinwieth/hello-world.git
+env:
+  LOCAL: hello-world
+  REMOTE: https://github.com/kelvinwieth/hello-world.git
+  HOST: ${{ secrets.REMOTE_HOST }}
+  USERNAME: ${{ secrets.REMOTE_USER }}
+  SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
 
 jobs:
   deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
     steps:
-
     - name: Pulling repository
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USER }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        script_stop: true
-        script: |
-          mkdir -p hello-world
-          cd hello-world
-          git pull https://github.com/kelvinwieth/hello-world.git
+        host: $HOST
+        username: $USERNAME
+        key: $SSH_KEY
+        script: if [ -d $LOCAL ]; then git -C $LOCAL pull; else git clone $REMOTE; fi
 
     # - name: Building project
     #   uses: appleboy/ssh-action@master
