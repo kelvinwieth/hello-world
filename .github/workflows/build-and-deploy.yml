@@ -1,0 +1,51 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [ "master" ]
+
+env:
+  REPOSITORY_NAME: hello-world
+  REPOSITORY_URL: https://github.com/kelvinwieth/hello-world.git
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Pulling repository
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        script_stop: true
+        script: |
+          mkdir -p $REPOSITORY_NAME
+          cd $REPOSITORY_NAME
+          git pull $REPOSITORY_URL
+
+    # - name: Building project
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.REMOTE_HOST }}
+    #     username: ${{ secrets.REMOTE_USER }}
+    #     key: ${{ secrets.SERVER_SSH_KEY }}
+    #     script: ./scripts/build.sh
+    
+    # - name: Running project
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.REMOTE_HOST }}
+    #     username: ${{ secrets.REMOTE_USER }}
+    #     key: ${{ secrets.SERVER_SSH_KEY }}
+    #     script: ./scripts/run.sh
+    
+    # - name: Removing scripts
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.REMOTE_HOST }}
+    #     username: ${{ secrets.REMOTE_USER }}
+    #     key: ${{ secrets.SERVER_SSH_KEY }}
+    #     script: rm -rf scripts
