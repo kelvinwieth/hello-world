@@ -4,9 +4,9 @@ on:
   push:
     branches: [ "master" ]
 
-env:
-  REPOSITORY_NAME: hello-world
-  REPOSITORY_URL: https://github.com/kelvinwieth/hello-world.git
+# env:
+#   REPOSITORY_NAME: hello-world
+#   REPOSITORY_URL: https://github.com/kelvinwieth/hello-world.git
 
 jobs:
   deploy:
@@ -22,9 +22,9 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         script_stop: true
         script: |
-          mkdir -p $REPOSITORY_NAME
-          cd $REPOSITORY_NAME
-          git pull $REPOSITORY_URL
+          mkdir -p hello-world
+          cd hello-world
+          git pull https://github.com/kelvinwieth/hello-world.git
 
     # - name: Building project
     #   uses: appleboy/ssh-action@master
