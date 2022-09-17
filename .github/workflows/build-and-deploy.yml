@@ -4,17 +4,20 @@ on:
   push:
     branches: [ "master" ]
 
-env:
-  LOCAL: hello-world
-  REMOTE: https://github.com/kelvinwieth/hello-world.git
-  HOST: ${{ secrets.REMOTE_HOST }}
-  USERNAME: ${{ secrets.REMOTE_USER }}
-  SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+
 
 jobs:
   deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
+
+    env:
+      LOCAL: hello-world
+      REMOTE: https://github.com/kelvinwieth/hello-world.git
+      HOST: ${{ secrets.REMOTE_HOST }}
+      USERNAME: ${{ secrets.REMOTE_USER }}
+      SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+
     steps:
     - name: Pulling repository
       uses: appleboy/ssh-action@master
