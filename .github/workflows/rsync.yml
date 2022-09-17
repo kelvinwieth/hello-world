@@ -8,7 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to Server
+    - name: Repository checkout
+      uses: actions/checkout@v3
+    - name: Deploy to server
       uses: easingthemes/ssh-deploy@main
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
