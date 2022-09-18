@@ -16,8 +16,8 @@ jobs:
     - name: Pull, build and run project
       uses: appleboy/ssh-action@v0.1.5
       env:
-        LOCAL: hello-world
-        REMOTE: https://github.com/kelvinwieth/hello-world.git
+        LOCAL: ${{ github.event.repository.name }}
+        REMOTE: ${{ github.repositoryUrl }}
       with:
         host: $HOST
         username: $USERNAME
