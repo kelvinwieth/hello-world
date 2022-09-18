@@ -27,5 +27,5 @@ jobs:
         script: |
           if [ -d $LOCAL/.git ]; then git -C $LOCAL pull; else rm -rf $LOCAL; git clone $REMOTE; fi
           chmod +x -R $LOCAL/scripts
-          $LOCAL/scripts/build.sh
-          $LOCAL/scripts/run.sh
+          ./$LOCAL/scripts/build.sh
+          ./$LOCAL/scripts/run.sh
