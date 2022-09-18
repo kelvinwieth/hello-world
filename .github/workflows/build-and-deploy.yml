@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Pull, build and run project
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@dce9d565de8d876c11d93fa4fe677c0285a66d78
       env:
         LOCAL: hello-world
         REMOTE: https://github.com/kelvinwieth/hello-world.git
